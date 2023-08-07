@@ -28,6 +28,7 @@
         android:text="TextView"
         android:textColor="#0A0101"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

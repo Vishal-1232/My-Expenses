@@ -3,4 +3,5 @@
     <string name="item_name">Item Name</string>
     <string name="date">Date</string>
     <string name="price">Price</string>
+    <string name="extra_details_optional">Extra details related to item(Optional)</string>
 </resources>

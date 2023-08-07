@@ -23,19 +23,21 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText dateEdt,itemName,price;
+    EditText dateEdt,itemName,price,extra;
     Button save,history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
         dateEdt = findViewById(R.id.date);
         itemName = findViewById(R.id.item);
         price = findViewById(R.id.price);
         save = findViewById(R.id.save);
         history = findViewById(R.id.history);
+        extra = findViewById(R.id.opt);
         DatabaseHelper databaseHelper = DatabaseHelper.getDB(this);
 
         dateEdt.setOnClickListener(new View.OnClickListener() {
@@ -88,10 +90,11 @@ public class MainActivity extends AppCompatActivity {
                     price.setError("Required");
                     return;
                 }
-                databaseHelper.expensedao().addExpense(new Expense((Integer.parseInt(price.getText().toString())), dateEdt.getText().toString(),itemName.getText().toString()));
+                databaseHelper.expensedao().addExpense(new Expense((Integer.parseInt(price.getText().toString())), dateEdt.getText().toString(),itemName.getText().toString(),extra.getText().toString()));
                 price.setText("");
                 dateEdt.setText("");
                 itemName.setText("");
+                extra.setText("");
                 Toast.makeText(MainActivity.this, "Expense Added", Toast.LENGTH_SHORT).show();
                 Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 vibe.vibrate(100);

@@ -19,18 +19,23 @@ public class Expense {
     @ColumnInfo(name = "itemName")
     private String itemName;
 
-    public Expense(int id, int price, String date, String itemName) {
+    @ColumnInfo(name = "extra_detail")
+    private String extra;
+
+    public Expense(int id, int price, String date, String itemName, String extra) {
         this.id = id;
         this.price = price;
         this.date = date;
         this.itemName = itemName;
+        this.extra = extra;
     }
 
     @Ignore
-    public Expense(int price, String date, String itemName) {
+    public Expense(int price, String date, String itemName, String extra) {
         this.price = price;
         this.date = date;
         this.itemName = itemName;
+        this.extra=extra;
     }
 
     public int getId() {
@@ -63,5 +68,13 @@ public class Expense {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 }

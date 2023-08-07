@@ -4,7 +4,10 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RawQuery;
 import androidx.room.Update;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteQuery;
 
 import com.example.myexpenses.Entities.Expense;
 
@@ -13,13 +16,13 @@ import java.util.List;
 @Dao
 public interface Expensedao {
 
-    @Query("select * from expense order by price")
+    @Query("select * from expense")
     List<Expense>getAllExpenses();
 
     @Query("select sum(price) from expense")
     String getPriceSum();
 
-    @Query("delete from expense;")
+    @Query("delete from expense")
     void clr();
 
     @Insert
@@ -30,6 +33,5 @@ public interface Expensedao {
 
     @Delete
     void deleteExpense(Expense expense);
-
 
 }

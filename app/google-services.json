@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "360244226395",
+    "firebase_url": "https://budgetapp-a306b-default-rtdb.firebaseio.com",
+    "project_id": "budgetapp-a306b",
+    "storage_bucket": "budgetapp-a306b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360244226395:android:a756509f99f8885d01927e",
+        "android_client_info": {
+          "package_name": "com.example.budgetapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360244226395-h2qbq7b9n6hhoquol5c8apgr2bouuvci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5VLkwRi0W2sdBdy9wKZgvLWDdxdvlp5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360244226395-h2qbq7b9n6hhoquol5c8apgr2bouuvci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360244226395:android:9b60982d4d76eb4401927e",
+        "android_client_info": {
+          "package_name": "com.example.myexpenses"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360244226395-h2qbq7b9n6hhoquol5c8apgr2bouuvci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5VLkwRi0W2sdBdy9wKZgvLWDdxdvlp5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360244226395-h2qbq7b9n6hhoquol5c8apgr2bouuvci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

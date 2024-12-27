@@ -22,6 +22,9 @@
             android:id="@+id/action_sort_name"
             android:title="Sort by Name (A-Z)" />
         <item
+            android:id="@+id/action_view_older_budgets"
+            android:title="View Older Budgets" />
+        <item
             android:id="@+id/action_clear"
             android:title="Clear All" />
     </group>

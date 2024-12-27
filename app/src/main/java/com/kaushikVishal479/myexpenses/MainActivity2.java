@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.Menu;
@@ -79,6 +80,9 @@ public class MainActivity2 extends AppCompatActivity {
                 return true;
             case R.id.action_clear:
                 clear();
+                return true;
+            case R.id.action_view_older_budgets:
+                startActivity(new Intent(MainActivity2.this,OlderBudgetScreen.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

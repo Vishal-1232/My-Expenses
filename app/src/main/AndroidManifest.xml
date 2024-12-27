@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,9 +15,14 @@
         android:theme="@style/Theme.MyExpenses"
         tools:targetApi="31">
         <activity
+            android:name=".OlderBudgetScreen"
+            android:exported="false"
+            android:parentActivityName=".MainActivity2"
+            />
+        <activity
             android:name=".MainActivity2"
-            android:parentActivityName=".MainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

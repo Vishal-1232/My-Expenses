@@ -22,14 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kaushikVishal479.myexpenses.Database.DatabaseHelper;
 import com.kaushikVishal479.myexpenses.Entities.Expense;
-import com.kaushikVishal479.myexpenses.MainActivity;
 import com.kaushikVishal479.myexpenses.R;
 import com.kaushikVishal479.myexpenses.Utils.Utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.viewHolder> {
     ArrayList<Expense> list;
@@ -202,9 +198,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.viewHold
             super(itemView);
             itemName = itemView.findViewById(R.id.itemName);
             date = itemView.findViewById(R.id.dateOfPurchase);
-            price = itemView.findViewById(R.id.cost);
+            price = itemView.findViewById(R.id.cost_1);
             itemId = itemView.findViewById(R.id.itmid);
-            options = itemView.findViewById(R.id.options);
+            options = itemView.findViewById(R.id.options_1);
             extra = itemView.findViewById(R.id.extraDetail);
         }
     }

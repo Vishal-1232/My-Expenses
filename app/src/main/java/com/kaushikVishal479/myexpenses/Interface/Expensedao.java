@@ -14,7 +14,19 @@ import java.util.List;
 public interface Expensedao {
 
     @Query("select * from expense ORDER BY itemName")
-    List<Expense>getAllExpenses();
+    List<Expense>getAllExpensesByItemName();
+
+    @Query("select * from expense ORDER BY date")
+    List<Expense>getAllExpensesByDateOldToNew();
+
+    @Query("select * from expense ORDER BY date DESC")
+    List<Expense>getAllExpensesByDateNewToOld();
+
+    @Query("select * from expense ORDER BY price")
+    List<Expense>getAllExpensesByPriceLowToHigh();
+
+    @Query("select * from expense ORDER BY price DESC")
+    List<Expense>getAllExpensesByPriceHighToLow();
 
     @Query("select sum(price) from expense")
     String getPriceSum();

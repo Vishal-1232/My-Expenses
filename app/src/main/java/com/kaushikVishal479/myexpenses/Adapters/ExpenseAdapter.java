@@ -3,6 +3,7 @@ package com.kaushikVishal479.myexpenses.Adapters;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,9 +22,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kaushikVishal479.myexpenses.Database.DatabaseHelper;
 import com.kaushikVishal479.myexpenses.Entities.Expense;
+import com.kaushikVishal479.myexpenses.MainActivity;
 import com.kaushikVishal479.myexpenses.R;
+import com.kaushikVishal479.myexpenses.Utils.Utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.viewHolder> {
     ArrayList<Expense> list;
@@ -32,6 +38,12 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.viewHold
     public ExpenseAdapter(ArrayList<Expense> list, Context context) {
         this.list = list;
         this.context = context;
+    }
+
+    // Add a setList method to update the list
+    public void setList(ArrayList<Expense> newList) {
+        this.list = newList;
+        notifyDataSetChanged();  // Notify adapter that the data has changed
     }
 
     @NonNull
@@ -45,14 +57,39 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.viewHold
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         Expense expense = list.get(position);
         holder.itemName.setText(expense.getItemName());
-        holder.date.setText(expense.getDate());
+        holder.date.setText(Utils.dateToString(expense.getDate()));
         String amt = String.valueOf(expense.getPrice())+" ₹";
         holder.price.setText(amt);
         holder.itemId.setText(String.valueOf(expense.getId()));
         if (expense.getExtra().isEmpty()) {
             holder.extra.setVisibility(View.GONE);
         }else {
-            holder.extra.setText(expense.getExtra());
+            // Full text from the expense
+            String fullText = expense.getExtra();
+
+            // Truncated text (e.g., first 100 characters)
+            int maxLength = 100;
+            String truncatedText = fullText.length() > maxLength ? fullText.substring(0, maxLength) + " ..." : fullText;
+
+            // Initially display truncated text
+            holder.extra.setText(truncatedText);
+
+            // Set a click listener on the TextView to toggle between truncated and full text
+            holder.extra.setOnClickListener(new View.OnClickListener() {
+                private boolean isExpanded = false; // Track whether the text is expanded or not
+
+                @Override
+                public void onClick(View v) {
+                    if (isExpanded) {
+                        // Collapse to truncated text
+                        holder.extra.setText(truncatedText);
+                    } else {
+                        // Expand to full text
+                        holder.extra.setText(fullText);
+                    }
+                    isExpanded = !isExpanded;
+                }
+            });
         }
         holder.options.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +111,14 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.viewHold
                                 EditText itemName = updateDialog.findViewById(R.id.item);
                                 itemName.setText(expense.getItemName());
                                 EditText date = updateDialog.findViewById(R.id.date);
-                                date.setText(expense.getDate());
+                                date.setText(Utils.dateToString(expense.getDate()));
+                                date.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        final DatePickerDialog datePickerDialog = Utils.getDatePickerDialog(view.getContext(),date);
+                                        datePickerDialog.show();
+                                    }
+                                });
                                 EditText price = updateDialog.findViewById(R.id.price);
                                 price.setText(String.valueOf(expense.getPrice()));
                                 EditText extra = updateDialog.findViewById(R.id.opt);
@@ -89,7 +133,8 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.viewHold
                                     @Override
                                     public void onClick(View view) {
                                         updateDialog.dismiss();
-                                        Expense updatedExpense = new Expense(Integer.parseInt(price.getText().toString()),date.getText().toString(),itemName.getText().toString(),extra.getText().toString());
+
+                                        Expense updatedExpense = new Expense(Integer.parseInt(price.getText().toString()), Utils.stringToDate(date.getText().toString()),itemName.getText().toString(),extra.getText().toString());
                                         updatedExpense.setId(expense.getId());
                                         DatabaseHelper databaseHelper = DatabaseHelper.getDB(context);
                                         databaseHelper.expensedao().updateExpense(updatedExpense);

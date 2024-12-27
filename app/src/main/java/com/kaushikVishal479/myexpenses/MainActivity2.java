@@ -39,10 +39,24 @@ public class MainActivity2 extends AppCompatActivity {
         show_expense = findViewById(R.id.show_expense);
         total = findViewById(R.id.total);
 
+        // Receive the selected month-year and total spendings from the Intent
+        String selectedMonthYear = getIntent().getStringExtra("SELECTED_MONTH_YEAR");
+        int selectedTotalSpendings = getIntent().getIntExtra("SELECTED_TOTAL_SPENDINGS", 0);
+
+
+
+
         databaseHelper = DatabaseHelper.getDB(MainActivity2.this);
-        String totalCost = "Total : "+databaseHelper.expensedao().getPriceSum()+" ₹";
+        String totalCost;
+        if(selectedMonthYear==null){
+            list = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByItemName();
+            totalCost =  "Total : "+databaseHelper.expensedao().getPriceSum()+" ₹";
+        }else{
+            list = (ArrayList<Expense>) databaseHelper.expensedao().getExpensesForMonthYear(selectedMonthYear);
+            totalCost =  "Total : "+selectedTotalSpendings+" ₹";
+        }
         total.setText(totalCost);
-        list= (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByItemName();
+
         expenseAdapter = new ExpenseAdapter(list,MainActivity2.this);
         show_expense.setAdapter(expenseAdapter);
         show_expense.setLayoutManager(new LinearLayoutManager(MainActivity2.this));

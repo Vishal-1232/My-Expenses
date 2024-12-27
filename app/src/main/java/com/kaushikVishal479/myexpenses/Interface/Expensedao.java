@@ -32,6 +32,9 @@ public interface Expensedao {
     @Query("select sum(price) from expense where strftime('%Y-%m', DATETIME(date / 1000, 'unixepoch', 'localtime')) = strftime('%Y-%m', 'now')")
     String getPriceSum();
 
+    @Query("SELECT * FROM expense WHERE strftime('%m-%Y', DATETIME(date / 1000, 'unixepoch', 'localtime')) = :monthYear")
+    List<Expense> getExpensesForMonthYear(String monthYear);
+
     @Query("delete from expense")
     void clr();
 

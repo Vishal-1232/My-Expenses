@@ -39,6 +39,14 @@ public class MainActivity2 extends AppCompatActivity {
         show_expense = findViewById(R.id.show_expense);
         total = findViewById(R.id.total);
 
+        // Get the title from Intent (if passed)
+        String title = getIntent().getStringExtra("TITLE_KEY");
+
+        // Set the app bar title
+        if (title != null) {
+            getSupportActionBar().setTitle(title);
+        }
+
         // Receive the selected month-year and total spendings from the Intent
         String selectedMonthYear = getIntent().getStringExtra("SELECTED_MONTH_YEAR");
         int selectedTotalSpendings = getIntent().getIntExtra("SELECTED_TOTAL_SPENDINGS", 0);
@@ -51,6 +59,9 @@ public class MainActivity2 extends AppCompatActivity {
         if(selectedMonthYear==null){
             list = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByItemName();
             totalCost =  "Total : "+databaseHelper.expensedao().getPriceSum()+" ₹";
+            if(totalCost.equals("Total : null ₹")){
+                totalCost = "Total : 0 ₹";
+            }
         }else{
             list = (ArrayList<Expense>) databaseHelper.expensedao().getExpensesForMonthYear(selectedMonthYear);
             totalCost =  "Total : "+selectedTotalSpendings+" ₹";
@@ -96,11 +107,20 @@ public class MainActivity2 extends AppCompatActivity {
                 clear();
                 return true;
             case R.id.action_view_older_budgets:
-                startActivity(new Intent(MainActivity2.this,OlderBudgetScreen.class));
+                Intent intent = new Intent(MainActivity2.this, OlderBudgetScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                //startActivity(new Intent(MainActivity2.this,OlderBudgetScreen.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     void clear(){

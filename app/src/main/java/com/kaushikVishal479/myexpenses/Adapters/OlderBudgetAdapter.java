@@ -37,7 +37,7 @@ public class OlderBudgetAdapter extends RecyclerView.Adapter<OlderBudgetAdapter.
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         MonthYearTotal monthYearTotal = list.get(position);
         holder.itemCount.setText(String.valueOf(position+1));
-        holder.monthYear.setText(monthYearTotal.getMonthYear());
+        holder.monthYear.setText(formatMonthYear(monthYearTotal.getMonthYear()));
         holder.price.setText("₹ "+String.valueOf(monthYearTotal.getTotalSpendings()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +48,7 @@ public class OlderBudgetAdapter extends RecyclerView.Adapter<OlderBudgetAdapter.
                 // Sending the month-year and totalSpendings data
                 intent.putExtra("SELECTED_MONTH_YEAR", monthYearTotal.getMonthYear());
                 intent.putExtra("SELECTED_TOTAL_SPENDINGS", monthYearTotal.getTotalSpendings());
-
+                intent.putExtra("TITLE_KEY", formatMonthYear(monthYearTotal.getMonthYear()));
                 // Start MainActivity2 with the data
                 holder.itemView.getContext().startActivity(intent);
             }
@@ -72,5 +72,31 @@ public class OlderBudgetAdapter extends RecyclerView.Adapter<OlderBudgetAdapter.
             monthYear = itemView.findViewById(R.id.month_year);
             itemCount = itemView.findViewById(R.id.item_count);
         }
+    }
+
+    String formatMonthYear(String monthYear){
+        String[] parts = monthYear.split("-");
+        String month = parts[0];
+        String year = parts[1];
+
+        String formattedMonth;
+        switch (month) {
+            case "01": formattedMonth = "Jan"; break;
+            case "02": formattedMonth = "Feb"; break;
+            case "03": formattedMonth = "Mar"; break;
+            case "04": formattedMonth = "Apr"; break;
+            case "05": formattedMonth = "May"; break;
+            case "06": formattedMonth = "Jun"; break;
+            case "07": formattedMonth = "Jul"; break;
+            case "08": formattedMonth = "Aug"; break;
+            case "09": formattedMonth = "Sep"; break;
+            case "10": formattedMonth = "Oct"; break;
+            case "11": formattedMonth = "Nov"; break;
+            case "12": formattedMonth = "Dec"; break;
+            default: formattedMonth = "Invalid"; // Handle unexpected values
+        }
+
+        // Return formatted "Month YYYY"
+        return formattedMonth + " " + year;
     }
 }

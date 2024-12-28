@@ -31,6 +31,8 @@ public class OlderBudgetScreen extends AppCompatActivity {
             return insets;
         });
 
+        getSupportActionBar().setTitle("Older Budgets");
+
         showOlderBudgetRecyclerView = findViewById(R.id.older_budget_recycler_view);
         databaseHelper = DatabaseHelper.getDB(OlderBudgetScreen.this);
         list= (ArrayList<MonthYearTotal>) databaseHelper.expensedao().getMonthYearWithTotalPrice();

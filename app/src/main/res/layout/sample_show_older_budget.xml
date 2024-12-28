@@ -66,11 +66,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:tint="#1313E6"
+                android:tint="#000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/options" />
+                app:srcCompat="@drawable/baseline_keyboard_arrow_right_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,29 +3,29 @@
     <group android:id="@+id/date">
         <item
             android:id="@+id/action_sort_date_old_to_new"
-            android:title="Sort by Date (Old to New)"
+            android:title="Sort by date (Old to New)"
             />
         <item
             android:id="@+id/action_sort_date_new_to_old"
-            android:title="Sort by Date (New to Old)" />
+            android:title="Sort by date (New to Old)" />
     </group>
     <group android:id="@+id/price">
         <item
             android:id="@+id/action_sort_price_low_to_high"
-            android:title="Sort by Price (Low to High)" />
+            android:title="Sort by price (Low to High)" />
         <item
             android:id="@+id/action_sort_price_high_to_low"
-            android:title="Sort by Price (High to Low)" />
+            android:title="Sort by price (High to Low)" />
     </group>
     <group android:id="@+id/others">
         <item
             android:id="@+id/action_sort_name"
-            android:title="Sort by Name (A-Z)" />
+            android:title="Sort by name (A-Z)" />
         <item
             android:id="@+id/action_view_older_budgets"
-            android:title="View Older Budgets" />
+            android:title="View older budgets" />
         <item
             android:id="@+id/action_clear"
-            android:title="Clear All" />
+            android:title="Clear all" />
     </group>
 </menu>

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kaushikVishal479.myexpenses.Adapters.ExpenseAdapter;
 import com.kaushikVishal479.myexpenses.Database.DatabaseHelper;
@@ -49,7 +50,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         // Receive the selected month-year and total spendings from the Intent
         String selectedMonthYear = getIntent().getStringExtra("SELECTED_MONTH_YEAR");
-        int selectedTotalSpendings = getIntent().getIntExtra("SELECTED_TOTAL_SPENDINGS", 0);
+        double selectedTotalSpendings = getIntent().getIntExtra("SELECTED_TOTAL_SPENDINGS", 0);
 
 
 
@@ -107,10 +108,13 @@ public class MainActivity2 extends AppCompatActivity {
                 clear();
                 return true;
             case R.id.action_view_older_budgets:
+                if(list.isEmpty()){
+                    Toast.makeText(this, "No record found", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 Intent intent = new Intent(MainActivity2.this, OlderBudgetScreen.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                //startActivity(new Intent(MainActivity2.this,OlderBudgetScreen.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

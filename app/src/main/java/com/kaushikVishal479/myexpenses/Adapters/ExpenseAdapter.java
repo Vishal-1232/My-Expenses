@@ -54,7 +54,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.viewHold
         Expense expense = list.get(position);
         holder.itemName.setText(expense.getItemName());
         holder.date.setText(Utils.dateToString(expense.getDate()));
-        String amt = String.valueOf(expense.getPrice())+" ₹";
+        String amt = Utils.doubleToString(expense.getPrice())+" ₹";
         holder.price.setText(amt);
         holder.itemId.setText(String.valueOf(expense.getId()));
         if (expense.getExtra().isEmpty()) {
@@ -130,7 +130,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.viewHold
                                     public void onClick(View view) {
                                         updateDialog.dismiss();
 
-                                        Expense updatedExpense = new Expense(Integer.parseInt(price.getText().toString()), Utils.stringToDate(date.getText().toString()),itemName.getText().toString(),extra.getText().toString());
+                                        Expense updatedExpense = new Expense(Double.parseDouble(price.getText().toString()), Utils.stringToDate(date.getText().toString()),itemName.getText().toString(),extra.getText().toString());
                                         updatedExpense.setId(expense.getId());
                                         DatabaseHelper databaseHelper = DatabaseHelper.getDB(context);
                                         databaseHelper.expensedao().updateExpense(updatedExpense);

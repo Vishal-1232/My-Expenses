@@ -7,9 +7,9 @@ public class MonthYearTotal {
     private String monthYear;
 
     @ColumnInfo(name = "totalSpendings")
-    private int totalSpendings;
+    private double totalSpendings;
 
-    public MonthYearTotal(String monthYear, int totalSpendings) {
+    public MonthYearTotal(String monthYear, double totalSpendings) {
         this.monthYear = monthYear;
         this.totalSpendings = totalSpendings;
     }
@@ -22,11 +22,11 @@ public class MonthYearTotal {
         this.monthYear = monthYear;
     }
 
-    public int getTotalSpendings() {
+    public double getTotalSpendings() {
         return totalSpendings;
     }
 
-    public void setTotalSpendings(int totalSpendings) {
+    public void setTotalSpendings(double totalSpendings) {
         this.totalSpendings = totalSpendings;
     }
 }

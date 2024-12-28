@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.kaushikVishal479.myexpenses.MainActivity;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,6 +27,12 @@ public class Utils {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String doubleToString(Double price){
+        // Format the price
+        DecimalFormat formatter = new DecimalFormat("0.##");
+        return formatter.format(price);
     }
 
     public static DatePickerDialog getDatePickerDialog(Context context, EditText editText){

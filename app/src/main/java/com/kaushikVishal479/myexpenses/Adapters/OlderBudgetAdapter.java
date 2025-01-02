@@ -2,6 +2,7 @@ package com.kaushikVishal479.myexpenses.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kaushikVishal479.myexpenses.Entities.MonthYearTotal;
 import com.kaushikVishal479.myexpenses.MainActivity2;
 import com.kaushikVishal479.myexpenses.R;
+import com.kaushikVishal479.myexpenses.Utils.Utils;
 
 import java.util.ArrayList;
 
@@ -38,7 +40,7 @@ public class OlderBudgetAdapter extends RecyclerView.Adapter<OlderBudgetAdapter.
         MonthYearTotal monthYearTotal = list.get(position);
         holder.itemCount.setText(String.valueOf(position+1));
         holder.monthYear.setText(formatMonthYear(monthYearTotal.getMonthYear()));
-        holder.price.setText("₹ "+String.valueOf(monthYearTotal.getTotalSpendings()));
+        holder.price.setText("₹ "+ Utils.doubleToString(monthYearTotal.getTotalSpendings()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

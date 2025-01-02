@@ -54,7 +54,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.viewHold
         Expense expense = list.get(position);
         holder.itemName.setText(expense.getItemName());
         holder.date.setText(Utils.dateToString(expense.getDate()));
-        String amt = Utils.doubleToString(expense.getPrice())+" ₹";
+        String amt = "₹ "+Utils.doubleToString(expense.getPrice());
         holder.price.setText(amt);
         holder.itemId.setText(String.valueOf(expense.getId()));
         if (expense.getExtra().isEmpty()) {

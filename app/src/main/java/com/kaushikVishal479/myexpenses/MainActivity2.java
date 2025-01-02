@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.kaushikVishal479.myexpenses.Adapters.ExpenseAdapter;
 import com.kaushikVishal479.myexpenses.Database.DatabaseHelper;
 import com.kaushikVishal479.myexpenses.Entities.Expense;
+import com.kaushikVishal479.myexpenses.Utils.Utils;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class MainActivity2 extends AppCompatActivity {
     ExpenseAdapter expenseAdapter;
     TextView total;
     DatabaseHelper databaseHelper;
-    ArrayList<Expense> list;
+    ArrayList<Expense> currentMonthExpenseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         // Receive the selected month-year and total spendings from the Intent
         String selectedMonthYear = getIntent().getStringExtra("SELECTED_MONTH_YEAR");
-        double selectedTotalSpendings = getIntent().getIntExtra("SELECTED_TOTAL_SPENDINGS", 0);
+        double selectedTotalSpendings = getIntent().getDoubleExtra("SELECTED_TOTAL_SPENDINGS", 0);
 
 
 
@@ -58,18 +59,18 @@ public class MainActivity2 extends AppCompatActivity {
         databaseHelper = DatabaseHelper.getDB(MainActivity2.this);
         String totalCost;
         if(selectedMonthYear==null){
-            list = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByItemName();
+            currentMonthExpenseList = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByItemName();
             totalCost =  "Total : "+databaseHelper.expensedao().getPriceSum()+" ₹";
             if(totalCost.equals("Total : null ₹")){
-                totalCost = "Total : 0 ₹";
+                totalCost = "Total : ₹ 0";
             }
         }else{
-            list = (ArrayList<Expense>) databaseHelper.expensedao().getExpensesForMonthYear(selectedMonthYear);
-            totalCost =  "Total : "+selectedTotalSpendings+" ₹";
+            currentMonthExpenseList = (ArrayList<Expense>) databaseHelper.expensedao().getExpensesForMonthYear(selectedMonthYear);
+            totalCost =  "Total : ₹ "+ Utils.doubleToString(selectedTotalSpendings);
         }
         total.setText(totalCost);
 
-        expenseAdapter = new ExpenseAdapter(list,MainActivity2.this);
+        expenseAdapter = new ExpenseAdapter(currentMonthExpenseList,MainActivity2.this);
         show_expense.setAdapter(expenseAdapter);
         show_expense.setLayoutManager(new LinearLayoutManager(MainActivity2.this));
     }
@@ -85,32 +86,36 @@ public class MainActivity2 extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sort_name:
-                list = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByItemName();
-                expenseAdapter.setList(list);
+                currentMonthExpenseList = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByItemName();
+                expenseAdapter.setList(currentMonthExpenseList);
                 return true;
             case R.id.action_sort_date_old_to_new:
-                list = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByDateOldToNew();
-                expenseAdapter.setList(list);
+                currentMonthExpenseList = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByDateOldToNew();
+                expenseAdapter.setList(currentMonthExpenseList);
                 return true;
             case R.id.action_sort_date_new_to_old:
-                list = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByDateNewToOld();
-                expenseAdapter.setList(list);
+                currentMonthExpenseList = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByDateNewToOld();
+                expenseAdapter.setList(currentMonthExpenseList);
                 return true;
             case R.id.action_sort_price_low_to_high:
-                list = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByPriceLowToHigh();
-                expenseAdapter.setList(list);
+                currentMonthExpenseList = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByPriceLowToHigh();
+                expenseAdapter.setList(currentMonthExpenseList);
                 return true;
             case R.id.action_sort_price_high_to_low:
-                list = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByPriceHighToLow();
-                expenseAdapter.setList(list);
+                currentMonthExpenseList = (ArrayList<Expense>) databaseHelper.expensedao().getAllExpensesByPriceHighToLow();
+                expenseAdapter.setList(currentMonthExpenseList);
                 return true;
             case R.id.action_clear:
                 clear();
                 return true;
             case R.id.action_view_older_budgets:
-                if(list.isEmpty()){
-                    Toast.makeText(this, "No record found", Toast.LENGTH_SHORT).show();
-                    return false;
+                if(currentMonthExpenseList.isEmpty()){
+                    // check for any data present in expense table
+                    int itemCount = databaseHelper.expensedao().getItemsCount();
+                    if(itemCount==0){
+                        Toast.makeText(this, "No record found", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
                 }
                 Intent intent = new Intent(MainActivity2.this, OlderBudgetScreen.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

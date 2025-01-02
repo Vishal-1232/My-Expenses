@@ -32,13 +32,16 @@ public interface Expensedao {
     @Query("select sum(price) from expense where strftime('%Y-%m', DATETIME(date / 1000, 'unixepoch', 'localtime')) = strftime('%Y-%m', 'now')")
     String getPriceSum();
 
+    @Query("Select COUNT(id) FROM expense")
+    int getItemsCount();
+
     @Query("SELECT * FROM expense WHERE strftime('%m-%Y', DATETIME(date / 1000, 'unixepoch', 'localtime')) = :monthYear")
     List<Expense> getExpensesForMonthYear(String monthYear);
 
     @Query("delete from expense")
     void clr();
 
-    @Query("Select strftime('%m-%Y', DATETIME(date / 1000, 'unixepoch', 'localtime')) as monthYear, SUM(price) as totalSpendings from expense group by strftime('%m-%Y', DATETIME(date / 1000, 'unixepoch', 'localtime')) order by monthYear DESC")
+    @Query("Select strftime('%m-%Y', DATETIME(date / 1000, 'unixepoch', 'localtime')) as monthYear, SUM(price) as totalSpendings from expense group by strftime('%m-%Y', DATETIME(date / 1000, 'unixepoch', 'localtime')) order by DATETIME(date / 1000, 'unixepoch', 'localtime') DESC")
     List<MonthYearTotal> getMonthYearWithTotalPrice();
 
     @Insert

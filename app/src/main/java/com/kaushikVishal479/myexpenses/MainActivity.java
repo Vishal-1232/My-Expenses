@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String input = s.toString();
-                if (!input.matches("^\\d+(\\.\\d{1,2})?$")) {
+                if (!input.isEmpty() && !input.matches("^\\d+(\\.\\d{1,2})?$")) {
                     price.setError("Enter a valid amount (e.g. 50, 50.99)");
                 }
             }
